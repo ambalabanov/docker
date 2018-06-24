@@ -5,38 +5,27 @@ FROM kalilinux/kali-linux-docker
 RUN apt-get update && apt-get upgrade -y && apt-get dist-upgrade -y && apt-get install -y \
  metasploit-framework \
  exploitdb \
-
- 
- gobuster \
- hashcat \
- hydra \
- man-db \
- minicom \
- nasm \
- nmap \
- sqlmap \
- sslscan \
- wordlists
+ exploitdb-bin-sploits \
+ nasm
 
 # Create known_hosts for git cloning
+RUN mkdir /root/.ssh
 RUN touch /root/.ssh/known_hosts
 # Add host keys
 RUN ssh-keyscan bitbucket.org >> /root/.ssh/known_hosts
 RUN ssh-keyscan github.com >> /root/.ssh/known_hosts
 
 # Clone git repos
-RUN git clone https://github.com/danielmiessler/SecLists.git /opt/seclists
+RUN git clone https://github.com/EmpireProject/Empire.git /opt/empire
 RUN git clone https://github.com/PowerShellMafia/PowerSploit.git /opt/powersploit
+RUN git clone https://github.com/trustedsec/unicorn.git /opt/unicorn
 
-# Other installs
-RUN pip install pwntools
-
-# Start services
-RUN service postgresql start
-RUN msfdb init
+# Post-install
+RUN service postgresql start && msfdb init
+RUN /opt/empire/setup/install.sh
 
 # Update ENV
-ENV PATH=$PATH:/opt/powersploit
+ENV PATH=$PATH:/opt/powersploit:/opt/empire:/opt/unicorn
 
 # Set entrypoint and working directory
 WORKDIR /root/
