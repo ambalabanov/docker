@@ -4,12 +4,9 @@ FROM kalilinux/kali-linux-docker
 # Update and apt install programs
 RUN apt-get update && apt-get upgrade -y && apt-get dist-upgrade -y && apt-get install -y \
  metasploit-framework \
-
-
  exploitdb \
- exploitdb-bin-sploits \
- git \
- gdb \
+
+ 
  gobuster \
  hashcat \
  hydra \
