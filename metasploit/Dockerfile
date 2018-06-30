@@ -11,4 +11,6 @@ RUN service postgresql start && msfdb init
 EXPOSE 8080/tcp 4444/tcp
 
 # Starting DB
-CMD service postgresql start && bash
+CMD service postgresql start
+
+ENTRYPOINT /bin/bash
