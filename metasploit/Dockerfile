@@ -10,7 +10,4 @@ RUN service postgresql start && msfdb init
 # Indicate we want to expose ports 80 and 443
 EXPOSE 8080/tcp 4444/tcp
 
-# Starting DB
-CMD service postgresql start
-
 ENTRYPOINT /bin/bash
