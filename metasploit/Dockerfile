@@ -8,7 +8,7 @@ RUN apt-get update && apt-get upgrade -y && apt-get dist-upgrade -y && apt-get i
 RUN service postgresql start && msfdb init
 
 # Indicate we want to expose ports 80 and 443
-EXPOSE 80/tcp 443/tcp
+EXPOSE 8080/tcp 4444/tcp
 
 # Starting DB
 CMD service postgresql start
