@@ -1,0 +1,24 @@
+filebeat.prospectors:
+
+- type: log
+  enabled: true
+  paths:
+    - /opt/dionaea/var/dionaea/*.log
+  tags: ["dionaea-log"]
+
+- type: log
+  enabled: true
+  paths:
+    - /opt/dionaea/var/dionaea/*.json
+  tags: ["dionaea-json"]
+
+output.logstash:
+  hosts: ["79.104.53.14.elk-master:50443"]
+  ssl.certificate_authorities: ["/etc/filebeat/logstash.crt"]
+  ssl.certificate: "/etc/filebeat/client.crt"
+  ssl.key: "/etc/filebeat/client.key"
+
+shipper:
+    logging:
+    files:
+    rotateeverybytes: 10485760 # = 10MB

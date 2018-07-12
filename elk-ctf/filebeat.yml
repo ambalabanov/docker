@@ -1,0 +1,12 @@
+filebeat.prospectors:
+
+- type: log
+  enabled: true
+  paths:
+    - /var/log/*.log
+
+#output.logstash:
+#  hosts: ["45.77.102.84:5044"]
+
+output.elasticsearch:
+  hosts: ["45.77.102.84:9200"]

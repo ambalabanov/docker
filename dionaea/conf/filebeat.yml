@@ -1,0 +1,22 @@
+filebeat.prospectors:
+
+- type: log
+  enabled: true
+  paths:
+    - /opt/dionaea/var/dionaea/*.log
+  tags: ["dionaea-log"]
+ 
+- type: log
+  enabled: true
+  paths:
+    - /opt/dionaea/var/dionaea/*.json
+  tags: ["dionaea-json"]
+
+output.logstash:
+  hosts: ["logstash:5044"]
+ 
+  
+shipper:
+    logging:
+    files:
+    rotateeverybytes: 10485760 # = 10MB

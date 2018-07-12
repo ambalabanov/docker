@@ -1,0 +1,40 @@
+version: '2'
+services:
+  dionaea:
+    restart: always
+    image: ambalabanov/dionaea-docker
+    container_name: dionaea
+    volumes:
+      - ./conf/dionaea.cfg:/opt/dionaea/etc/dionaea/dionaea.cfg
+      - ./conf/filebeat.yml:/etc/filebeat/filebeat.yml
+      - ./conf/filebeat2.yml:/etc/filebeat/filebeat2.yml
+      - ./conf/client.crt:/etc/filebeat/client.crt
+      - ./conf/client.key:/etc/filebeat/client.key
+      - ./conf/logstash.crt:/etc/filebeat/logstash.crt
+      - ./supervisor/:/etc/supervisor/conf.d/
+    ports:
+      - "21:21"
+      - "42:42"
+      - "53:53"
+      - "53:53/udp"
+      - "69:69/udp"
+      - "80:80"
+      - "135:135"
+      - "443:443"
+      - "445:445"
+      - "1433:1433"
+      - "1723:1723"
+      - "1883:1883"
+      - "1900:1900/udp"
+      - "3306:3306"
+      - "5060:5060"
+      - "5060:5060/udp"
+      - "5061:5061"
+      - "11211:11211"
+    extra_hosts:
+      - "79.104.53.14.elk-master:79.104.53.14"
+    networks:
+      - elk
+networks:
+  elk:
+    external: true

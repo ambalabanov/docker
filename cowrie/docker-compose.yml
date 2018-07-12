@@ -1,0 +1,24 @@
+version: '2'
+services:
+  cowrie:
+    restart: always
+    image: ambalabanov/cowrie-docker
+    container_name: cowrie
+    ports:
+      - "22:2222"
+      - "23:2223"
+    volumes:
+      - ./conf/filebeat.yml:/etc/filebeat/filebeat.yml
+      - ./conf/filebeat2.yml:/etc/filebeat/filebeat2.yml
+      - ./conf/cowrie.cfg:/cowrie/cowrie-git/etc/cowrie.cfg
+      - ./conf/client.crt:/etc/filebeat/client.crt
+      - ./conf/client.key:/etc/filebeat/client.key
+      - ./conf/logstash.crt:/etc/filebeat/logstash.crt
+      - ./supervisor/:/etc/supervisor/conf.d/
+    extra_hosts:
+      - "79.104.53.14.elk-master:79.104.53.14"
+    networks:
+      - elk
+networks:
+  elk:
+    external: true

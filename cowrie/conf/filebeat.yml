@@ -1,0 +1,22 @@
+filebeat.prospectors:
+
+- type: log
+  enabled: true
+  paths:
+    - /cowrie/cowrie-git/log/*.log
+  tags: ["cowrie-log"]
+ 
+- type: log
+  enabled: true
+  paths:
+    - /cowrie/cowrie-git/log/*.json
+  tags: ["cowrie-json"]
+
+output.logstash:
+  hosts: ["logstash:5044"]
+
+  
+shipper:
+    logging:
+    files:
+    rotateeverybytes: 10485760 # = 10MB
