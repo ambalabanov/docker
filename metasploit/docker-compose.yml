@@ -10,7 +10,7 @@ services:
       - 4444:4444
     volumes:
       - $HOME/.msf4:/home/msf/.msf4
-      - /etc/localtime:/etc/localtime:ro
+
 
   db:
     image: postgres:10-alpine
